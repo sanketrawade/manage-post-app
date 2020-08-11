@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Post } from './posts/post.modal';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'mean-course';
+  // tslint:disable-next-line: max-line-length
+  // public storePosts: Post[] = [{title: 'cricket', content: 'matches'}, { title: 'football', content: 'matches'}, { title: 'games', content: 'matches'}];
+  // title = 'mean-course';
+
+  // AddPosted(post){
+  //  this.storePosts.push(JSON.parse(post));
+  // }
 }

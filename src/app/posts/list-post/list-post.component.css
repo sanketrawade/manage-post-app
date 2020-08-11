@@ -1,0 +1,17 @@
+mat-expansion-panel{
+  width: 635px;
+  align-items: center;
+  margin-top: 10px;
+  margin-left: 300px;
+}
+
+.alert-danger{
+  margin-left: 300px;
+  margin-top: 20px;
+  width: 615px;
+  font-weight: 100;
+  font-family:sans-serif;
+  text-align: center;
+  padding: 10px;
+  height: 30px;
+}
