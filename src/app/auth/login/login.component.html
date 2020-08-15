@@ -1,0 +1,18 @@
+<mat-card>
+  <form [formGroup]="loginFormGroup" (ngSubmit)="Login()">
+    <mat-form-field>
+      <input required matInput formControlName="username" placeholder="Please enter username." type="email">
+      <mat-error>Please
+        enter valid username.</mat-error>
+      <mat-error *ngIf="g.username.invalid">Please
+        enter valid username.</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput required formControlName="password" placeholder="Please enter password." name="content" id="">
+      <mat-error>Please enter password.</mat-error>
+    </mat-form-field><br><br>
+    <button [disabled]="!loginFormGroup.valid && isSubmitted" mat-raised-button type="submit"
+      color="primary">save</button>
+  </form>
+</mat-card>
