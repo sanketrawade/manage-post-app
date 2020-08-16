@@ -23,14 +23,28 @@ export class ListPostComponent implements OnInit, OnDestroy {
   pageSize = 1;
   pageSizeOption = [1, 2];
   isLogin = null;
+  userId: string = null;
   constructor(private postService: PostService, private router: Router, public authService: AuthService) {
   }
 
   ngOnInit() {
     this.pagination = new Paginator();
     this.GetPostList();
+    this.authService.GetUserId().subscribe((response) => {
+      this.userId = response;
+      console.log('userId: = ' + this.userId + 'is Login' + this.isLogin);
+    });
+    // this.GetUserId();
     this.authService.isAuthenticated.subscribe((response) => {
       this.isLogin = response;
+    });
+  }
+
+
+  GetUserId(){
+    this.authService.GetUserId().subscribe((response) => {
+      this.userId = response;
+      console.log(this.userId);
     });
   }
 
@@ -45,6 +59,7 @@ export class ListPostComponent implements OnInit, OnDestroy {
     // tslint:disable-next-line: max-line-length
     this.postSub = this.postService.GetPostList(this.pagination.pageSize, this.pagination.pageIndex).subscribe((resp: { messege: string, data: Post[], count: number }) => {
       this.posts = resp.data;
+      console.log(this.posts);
       this.pagination.length = resp.count;
       this.isLoading = false;
     });

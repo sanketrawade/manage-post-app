@@ -5,9 +5,8 @@ const PostRoutes = require("./routes/post");
 const UserRoutes = require("./routes/user");
 
 mongoose.connect("mongodb://localhost/StudentDb").then(() => {
+  console.log("db connected.");
 });
-
-let posts = [];
 
 app.use(express.json());
 
@@ -19,7 +18,6 @@ app.use((req, resp) => {
 });
 
 app.use("/post", PostRoutes);
-app.use("/user",UserRoutes);
-
+app.use("/user", UserRoutes);
 
 module.exports = app;

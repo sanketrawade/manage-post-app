@@ -70,7 +70,8 @@ export class AddPostComponent implements OnInit {
     const post: Post = {
       _id: null,
       title: this.postFormGroup.value.title,
-      content: this.postFormGroup.controls.content.value
+      content: this.postFormGroup.controls.content.value,
+      creator: null
     };
     this.isSubmitted = false;
     if (this.mode === 'add') {

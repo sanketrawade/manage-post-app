@@ -1,12 +1,18 @@
 const jwt = require("jsonwebtoken");
-let token;
 
 module.exports = (req, res, next) => {
   try {
-    token = req.headers.autherization.split(" ")[1];
-    jwt.verify(token, "secret_this_is_sas_sasas");
+    const encryptedToken = req.headers.autherization.split(" ")[1];
+    const dycryptedToken = jwt.verify(
+      encryptedToken,
+      "secret_this_is_sas_sasas"
+    );
+    req.userData = {
+      username: dycryptedToken.username,
+      userId: dycryptedToken.userId,
+    };
     next();
   } catch (error) {
-    return res.status(200).json({ "Authfailed": true });
+    return res.status(200).json({ Authfailed: true });
   }
 };

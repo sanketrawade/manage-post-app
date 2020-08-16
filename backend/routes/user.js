@@ -32,14 +32,12 @@ router.post("/api/lgnusr", (req, res) => {
       "secret_this_is_sas_sasas",
       { expiresIn: "2m" }
     );
-    res
-      .status(200)
-      .json({
-        data: user.username,
-        msg: "login success.",
-        token: token,
-        expiredIn: 120,
-      });
+    res.status(200).json({
+      data: user._id,
+      msg: "login success.",
+      token: token,
+      expiredIn: 120,
+    });
   });
 });
 

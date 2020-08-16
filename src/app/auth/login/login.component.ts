@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
   loginFormGroup: FormGroup;
   isSubmitted = false;
   token = null;
+  userId = null;
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
 
   }
@@ -39,8 +40,10 @@ export class LoginComponent implements OnInit {
     this.authService.Login(loginDetails.username, loginDetails.password).subscribe((response: any) => {
       const token = response?.token;
       const expiredIn = response?.expiredIn * 1000;
+      this.userId = response.data;
       this.authService.SetAuthData({ token , expiredIn});
       this.authService.isAuthenticated.next(true);
+      this.authService.SetUserId(this.userId);
       this.isSubmitted = false;
       this.loginFormGroup.reset();
       setTimeout(() => {

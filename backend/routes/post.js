@@ -40,16 +40,21 @@ router.post("/api/gtpstbyid", middleWare, (req, res) => {
 
 router.post("/api/updtpst", middleWare, (req, res) => {
   let post = req.body;
-  Post.updateOne({ _id: post._id }, post, (err, resp) => {
-    res.status(200).json({ data: post, msg: "post update successfully." });
-    res.end();
-  });
+  Post.updateOne(
+    { _id: post._id, creator: req.userData.userId },
+    post,
+    (err, resp) => {
+      res.status(200).json({ data: post, msg: "post update successfully." });
+      res.end();
+    }
+  );
 });
 
 router.post("/api/adpst", middleWare, (req, resp) => {
   const post = new Post({
     title: req.body.title,
     content: req.body.content,
+    creator: req.userData.userId,
   });
   post.save();
   resp.end();
@@ -57,12 +62,13 @@ router.post("/api/adpst", middleWare, (req, resp) => {
 
 router.post("/api/dlpst", middleWare, (req, resp) => {
   const idViewModel = req.body;
-  Post.deleteOne({ _id: idViewModel._id }, () => {});
-  resp.send().status(200).json({
-    messege: "post deleted",
-    data: posts,
-  });
-  resp.end();
+  Post.deleteOne(
+    { _id: idViewModel._id, creator: req.userData.userId },
+    (err, res) => {
+      res.status(200).json({ msg: "deleted successfully" });
+      res.end();
+    }
+  );
 });
 
 module.exports = router;
