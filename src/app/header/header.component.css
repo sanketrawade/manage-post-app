@@ -1,0 +1,29 @@
+ul {
+  display: flex;
+  list-style: none;
+}
+
+li {
+  text-decoration: none;
+}
+
+/* a{
+  color:white;
+  text-decoration: none;
+} */
+
+/* .mat-nav-list a.active {
+  background: gray;
+} */
+
+.listcolor {
+  color: gold;
+}
+
+span a{
+  font-size: large;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

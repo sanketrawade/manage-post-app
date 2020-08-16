@@ -11,30 +11,39 @@ export class PostService {
   ];
   private addedPost = new Subject<Post[]>();
 
-  GetPostList() {
-    return this.http.get('http://localhost:3000/api/gtpst');
+  GetPostList(pageSize , currentPage) {
+    return this.http.post('http://localhost:3000/post', {pageSize, currentPage});
   }
 
-  AddPost(post: Post){
-    this.posts.push(post);
-    this.addedPost.next([...this.posts]);
-    return this.http.post('http://localhost:3000/api/adpst', post);
+  GetPostById(id) {
+    const postDetails = {
+      Id: id
+    };
+    return this.http.post('http://localhost:3000/post/api/gtpstbyid', postDetails);
   }
 
-  DeletePost(id)
-  {
+  AddPost(post: Post) {
+    // this.posts.push(post);
+    // this.addedPost.next([...this.posts]);
+    return this.http.post('http://localhost:3000/post/api/adpst', post);
+  }
+
+  UpdatePost(post: Post) {
+    return this.http.post('http://localhost:3000/post/api/updtpst', post);
+  }
+
+  DeletePost(id) {
     const post = {
       _id: id
     };
-    return this.http.post('http://localhost:3000/api/dlpst', post);
+    return this.http.post('http://localhost:3000/post/api/dlpst', post);
   }
 
   GetUpdatedPost() {
     return this.addedPost.asObservable();
   }
 
-  InitializePost(posts: Post[])
-  {
+  InitializePost(posts: Post[]) {
     this.posts = posts;
     this.addedPost.next([...this.posts]);
   }

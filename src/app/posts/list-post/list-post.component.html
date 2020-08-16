@@ -1,19 +1,24 @@
 <!-- <mat-accordion> -->
-<mat-expansion-panel *ngFor="let post of posts" (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-       {{ post.title }}
-      </mat-panel-title>
-      <mat-panel-description>
+<mat-expansion-panel *ngFor="let post of posts" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ post.title }}
+    </mat-panel-title>
+    <mat-panel-description>
       {{ post.content }}
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <p>I'm visible because I am open</p>
-    <mat-action-row>
-      <button mat-raised-button color="accent" >Edit</button>
-      <button mat-raised-button (click)="Delete(post._id)" color="primary">Delete</button>
-    </mat-action-row>
-  </mat-expansion-panel>
-  <div class="alert alert-danger" *ngIf="posts.length==0">No posts found.</div>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <p>I'm visible because I am open</p>
+  <mat-action-row>
+    <button *ngIf="isLogin" mat-raised-button (click)="Edit(post._id)" color="accent">Edit</button>
+    <button *ngIf="isLogin" mat-raised-button (click)="Delete(post._id)" color="primary">Delete</button>
+  </mat-action-row>
+</mat-expansion-panel>
+<mat-paginator [length]="this.pagination.length" (page)="ChangePage($event)" [pageSize]="this.pagination.pageSize"
+  [pageSizeOptions]="pageSizeOption">
+</mat-paginator>
+<div class="alert alert-danger" *ngIf="posts?.length==0">No posts found.</div>
 <!-- </mat-accordion> -->
+<div *ngIf="isLoading" class="loading-indicator">
+  <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+</div>

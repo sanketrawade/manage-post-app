@@ -9,10 +9,10 @@
     </mat-form-field>
     <br>
     <mat-form-field>
-      <input matInput required formControlName="password" placeholder="Please enter password." name="content" id="">
+      <input matInput required formControlName="password" placeholder="Please enter password." type="password">
       <mat-error>Please enter password.</mat-error>
     </mat-form-field><br><br>
     <button [disabled]="!loginFormGroup.valid && isSubmitted" mat-raised-button type="submit"
-      color="primary">save</button>
+      color="primary">login</button>
   </form>
 </mat-card>

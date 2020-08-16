@@ -5,8 +5,17 @@ mat-card {
   margin-left: 300px;
 }
 
-mat-form-field{
+mat-form-field {
   width: 80%;
+}
+
+.previewImg img {
+  width: 100px;
+  height: 100px;
+}
+
+input[type="file"] {
+  visibility: hidden;
 }
 
 button {

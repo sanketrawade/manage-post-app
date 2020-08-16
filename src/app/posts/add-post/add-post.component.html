@@ -1,15 +1,26 @@
 <mat-card>
-  <form #postForm="ngForm" (ngSubmit)="Save()">
+  <form [formGroup]="postFormGroup" (ngSubmit)="Save()">
     <mat-form-field>
-      <input matInput required ngModel minlength="5" placeholder="Please enter title." type="text" name="title" id="">
-      <mat-error *ngIf="postForm.controls.title.hasError('required') && isSubmitted">Please enter title.</mat-error>
-      <mat-error>Please enter valid title.</mat-error>
+      <input matInput required formControlName="title" [(ngModel)]="title" minlength="5"
+        placeholder="Please enter title." type="text" name="title" id="">
+      <mat-error>Please enter title.</mat-error>
+      <mat-error *ngIf="postFormGroup.controls.title.invalid">Please
+        enter valid title.</mat-error>
     </mat-form-field>
     <br><br>
+    <div>
+      <button mat-stroked-button color="primary" (click)="fileButton.click()" type="button">Pick Image</button>
+      <input (change)="fileSelect($event)" type="file" #fileButton><br><br>
+      <div class="previewImg" *ngIf="imagePreview!=''">
+        <img [src]="imagePreview" [alt]="postFormGroup.value.title">
+      </div>
+    </div>
     <mat-form-field>
-      <textarea matInput required ngModel rows="2" placeholder="Please enter content." name="content" id=""></textarea>
+      <textarea matInput required formControlName="content" [(ngModel)]="content" rows="2"
+        placeholder="Please enter content." name="content" id=""></textarea>
       <mat-error>Please enter content.</mat-error>
     </mat-form-field><br><br>
-    <button [disabled]="!postForm.valid && isSubmitted" mat-raised-button type="submit" color="primary">save</button>
+    <button [disabled]="!postFormGroup.valid && isSubmitted" mat-raised-button type="submit"
+      color="primary">save</button>
   </form>
 </mat-card>

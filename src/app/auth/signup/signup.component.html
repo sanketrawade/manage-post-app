@@ -1,0 +1,25 @@
+<mat-card>
+  <form [formGroup]="signFormGroup" (ngSubmit)="Signup()">
+    <mat-form-field>
+      <input required matInput formControlName="username" placeholder="Please enter username." type="email">
+      <mat-error>Please
+        enter valid username.</mat-error>
+      <mat-error *ngIf="g.username.invalid && g.username.errors.require">Please
+        enter valid username.</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput required formControlName="password" type="password" placeholder="Please enter password." >
+      <mat-error>Please enter password.</mat-error>
+    </mat-form-field><br>
+    <mat-form-field>
+      <input matInput required formControlName="confirmPassword" type="password" placeholder="Please enter confirm password.">
+      <mat-error>Please enter confirm password.</mat-error>
+      <mat-label *ngIf="signFormGroup.hasError('notMatched')">
+        Password not matched</mat-label>
+    </mat-form-field>
+    <br><br>
+    <button [disabled]="!signFormGroup.valid && isSubmitted" mat-raised-button type="submit"
+      color="primary">signup</button>
+  </form>
+</mat-card>
