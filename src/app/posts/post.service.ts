@@ -11,8 +11,8 @@ export class PostService {
   ];
   private addedPost = new Subject<Post[]>();
 
-  GetPostList(pageSize , currentPage) {
-    return this.http.post('http://localhost:3000/post', {pageSize, currentPage});
+  GetPostList(pageSize, currentPage) {
+    return this.http.post('http://localhost:3000/post', { pageSize, currentPage });
   }
 
   GetPostById(id) {
@@ -25,6 +25,7 @@ export class PostService {
   AddPost(post: Post) {
     // this.posts.push(post);
     // this.addedPost.next([...this.posts]);
+    console.log(post);
     return this.http.post('http://localhost:3000/post/api/adpst', post);
   }
 
@@ -36,6 +37,7 @@ export class PostService {
     const post = {
       _id: id
     };
+    console.log(post);
     return this.http.post('http://localhost:3000/post/api/dlpst', post);
   }
 

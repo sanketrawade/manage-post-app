@@ -9,15 +9,19 @@ import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
+import { SharedModule } from '../shared/shared.module';
+import { AuthRoutingModule } from './auth.routing.module';
 
 @NgModule({
   declarations: [LoginComponent, SignupComponent],
   imports: [FormsModule, ReactiveFormsModule, MatCardModule,
+    AuthRoutingModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule, CommonModule],
+    MatInputModule, CommonModule,
+    SharedModule],
   exports: [],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+  providers: [],
   bootstrap: []
 })
 export class AuthModule { }

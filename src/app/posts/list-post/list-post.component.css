@@ -3,6 +3,11 @@ mat-expansion-panel {
   align-items: center;
   margin-top: 10px;
   margin-left: 300px;
+  transition: ease-in;
+  transition-duration: 5s;
+  animation-name: postanimate;
+  animation-iteration-count: inherit;
+  animation-duration: 3s;
 }
 
 .alert-danger {
@@ -44,4 +49,14 @@ mat-paginator {
   width: 100%;
   height: 100%;
   background-color: rgba(0,0,0,0.3);
+}
+
+
+@keyframes postanimate{
+  from{
+ transform:translateX(-300px)
+  }
+  to{
+    transform: translateX(0px);
+  }
 }

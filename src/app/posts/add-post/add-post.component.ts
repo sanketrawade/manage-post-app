@@ -5,6 +5,7 @@ import { EventEmitter } from '@angular/core';
 import { PostService } from '../post.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-add-post',
@@ -23,7 +24,9 @@ export class AddPostComponent implements OnInit {
   public isSubmitted = false;
   title = null;
   content = null;
-  constructor(public postService: PostService, private activatedRoute: ActivatedRoute, private router: Router, private fb: FormBuilder) {
+  creater: string;
+  // tslint:disable-next-line: max-line-length
+  constructor(public postService: PostService, private activatedRoute: ActivatedRoute, private router: Router, private fb: FormBuilder, private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -32,10 +35,11 @@ export class AddPostComponent implements OnInit {
       content: [null, [Validators.required]]
       // image: [null, [Validators.required]]
     });
-    this.activatedRoute.paramMap.subscribe((paramMap) => {
-      if (paramMap.has('id')) {
+    this.creater = this.authService.GetUserId();
+    this.activatedRoute.params.subscribe((params) => {
+      if (params.id) {
         this.mode = 'edit';
-        this.id = paramMap.get('id');
+        this.id = params.id;
         this.GetPostById(this.id);
       }
       else {
@@ -71,7 +75,7 @@ export class AddPostComponent implements OnInit {
       _id: null,
       title: this.postFormGroup.value.title,
       content: this.postFormGroup.controls.content.value,
-      creator: null
+      creator: this.creater
     };
     this.isSubmitted = false;
     if (this.mode === 'add') {
@@ -91,6 +95,7 @@ export class AddPostComponent implements OnInit {
   GetPostById(id) {
     this.postSub = this.postService.GetPostById(id).subscribe((resp: any) => {
       this.post = resp.data;
+      console.log(this.post);
       this.BindForm(this.post);
     });
   }

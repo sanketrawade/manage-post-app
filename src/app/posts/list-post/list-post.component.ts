@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Post } from '../post.modal';
 import { PostService } from '../post.service';
 import { Subscription } from 'rxjs';
@@ -21,7 +21,7 @@ export class ListPostComponent implements OnInit, OnDestroy {
   post: Post;
   totalRecords = 5;
   pageSize = 1;
-  pageSizeOption = [1, 2];
+  pageSizeOption = [2, 10];
   isLogin = null;
   userId: string = null;
   constructor(private postService: PostService, private router: Router, public authService: AuthService) {
@@ -30,23 +30,15 @@ export class ListPostComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.pagination = new Paginator();
     this.GetPostList();
-    this.authService.GetUserId().subscribe((response) => {
+    // this.userId = this.authService.GetUserId();
+    this.authService.userId.subscribe((response) =>  {
       this.userId = response;
-      console.log('userId: = ' + this.userId + 'is Login' + this.isLogin);
     });
-    // this.GetUserId();
     this.authService.isAuthenticated.subscribe((response) => {
       this.isLogin = response;
     });
   }
 
-
-  GetUserId(){
-    this.authService.GetUserId().subscribe((response) => {
-      this.userId = response;
-      console.log(this.userId);
-    });
-  }
 
   GetUpdatedList() {
     this.postService.GetUpdatedPost().subscribe((resp) => {
@@ -59,7 +51,7 @@ export class ListPostComponent implements OnInit, OnDestroy {
     // tslint:disable-next-line: max-line-length
     this.postSub = this.postService.GetPostList(this.pagination.pageSize, this.pagination.pageIndex).subscribe((resp: { messege: string, data: Post[], count: number }) => {
       this.posts = resp.data;
-      console.log(this.posts);
+      // console.log(this.posts);
       this.pagination.length = resp.count;
       this.isLoading = false;
     });
@@ -70,6 +62,7 @@ export class ListPostComponent implements OnInit, OnDestroy {
   }
 
   Delete(id) {
+    console.log(id);
     this.postService.DeletePost(id).subscribe((resp) => {
       this.GetPostList();
     });
